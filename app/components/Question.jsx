@@ -1,19 +1,27 @@
 "use client";
 import React from "react";
 
-const Question = ({ question, options, correctAnswer, showResults }) => {
+const Question = ({
+  qId,
+  question,
+  options,
+  correctAnswer,
+  showResults,
+  increaseCounter,
+}) => {
   const [answered, setAnswered] = React.useState(false);
   const [selected, setSelected] = React.useState("");
   const [correct, setCorrect] = React.useState(false);
 
-  const handleOptionClick = (option) => {
+  const handleOptionClick = (option, key) => {
     setSelected(option);
     setAnswered(true);
+    increaseCounter(qId);
   };
   return (
     <div>
       <h2>{question}</h2>
-      {selected && <p>selected: {selected}</p>}
+
       {showResults &&
         (correctAnswer !== selected ? (
           <p>Correct Answer: {correctAnswer}</p>
@@ -22,7 +30,14 @@ const Question = ({ question, options, correctAnswer, showResults }) => {
         ))}
       {options.map((option, index) => (
         <>
-          <button key={index} onClick={() => handleOptionClick(option)}>
+          <button
+            key={index}
+            onClick={() => handleOptionClick(option, qId)}
+            style={{
+              backgroundColor: option === selected ? "#4CAF50" : "#f0f0f0",
+              color: option === selected ? "white" : "black",
+            }}
+          >
             {option}
           </button>
         </>
