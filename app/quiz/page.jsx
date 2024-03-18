@@ -1,31 +1,21 @@
+"use client";
 import React from "react";
 import Question from "../components/Question";
 import { quiz } from "../data";
-const data = [
-  {
-    question: "What is your favorite color?",
-    options: ["Red", "Blue", "Green"],
-  },
-  {
-    question: "What is your favorite animal?",
-    options: ["Dog", "Cat", "Bird"],
-  },
-  // Add more questions as needed
-];
-// Example of correct initialization before usage
-// const quiz = {
-//   totalQuestions: 10,
-//   questions: ["a", "b", "c"],
-// };
+import Submit from "../components/Submit";
 
-// Usage
 const questions = quiz.questions;
-console.log(quiz.questions); // This should work assuming quiz is defined and initialized correctly.
 
 const page = () => {
+  const [showResults, setShowResults] = React.useState(false);
+  const handleSubmit = () => {
+    setShowResults(true);
+  };
+
   return (
     <div>
       <h1>{quiz.totalQuestions}</h1>
+      <button onClick={handleSubmit}>Submit</button>
       <div>
         {questions.map((item, index) => (
           <Question
@@ -33,6 +23,7 @@ const page = () => {
             question={item.question}
             options={item.options}
             correctAnswer={item.correctAnswer}
+            showResults={showResults}
           />
         ))}
       </div>

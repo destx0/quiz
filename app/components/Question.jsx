@@ -1,18 +1,30 @@
 "use client";
 import React from "react";
 
-const Question = ({ question, options, correctAnswer }) => {
+const Question = ({ question, options, correctAnswer, showResults }) => {
   const [answered, setAnswered] = React.useState(false);
   const [selected, setSelected] = React.useState("");
   const [correct, setCorrect] = React.useState(false);
-  const [answerIdx, setAnswerIdx] = React.useState(null);
+
+  const handleOptionClick = (option) => {
+    setSelected(option);
+    setAnswered(true);
+  };
   return (
     <div>
       <h2>{question}</h2>
-      <p>{correctAnswer}</p>
+      {selected && <p>selected: {selected}</p>}
+      {showResults &&
+        (correctAnswer !== selected ? (
+          <p>Correct Answer: {correctAnswer}</p>
+        ) : (
+          <p>Correct!</p>
+        ))}
       {options.map((option, index) => (
         <>
-          <button key={index}>{option}</button>
+          <button key={index} onClick={() => handleOptionClick(option)}>
+            {option}
+          </button>
         </>
       ))}
     </div>
