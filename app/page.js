@@ -4,10 +4,11 @@ import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <main >
+    <main>
       <div className="container">
-       <h1> quiz app</h1>
-      
+        <Link href="/quiz">
+          <button> quiz app</button>
+        </Link>
       </div>
     </main>
   );
