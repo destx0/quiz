@@ -12,8 +12,16 @@ const page = () => {
     new Array(questions.length).fill(false)
   );
   const [showResults, setShowResults] = React.useState(false);
+  const [resetState, setResetState] = React.useState(false);
+  const [resetTimestamp, setResetTimestamp] = React.useState(Date.now());
+
   const handleSubmit = () => {
     setShowResults(true);
+  };
+  const handleReset = () => {
+    setCounter([]);
+    setShowResults(false);
+    setResetTimestamp(Date.now());
   };
   const increaseCounter = (id) => {
     if (!counter.includes(id)) setCounter((prev) => [...prev, id]);
@@ -25,6 +33,7 @@ const page = () => {
         {counter.length}/{questions.length}
       </h1>
       <button onClick={handleSubmit}>Submit</button>
+      <button onClick={handleReset}>Reset</button>
       <div>
         {questions.map((item, index) => (
           <Question
@@ -35,6 +44,7 @@ const page = () => {
             correctAnswer={item.correctAnswer}
             showResults={showResults}
             increaseCounter={increaseCounter}
+            resetTimestamp={resetTimestamp}
           />
         ))}
       </div>

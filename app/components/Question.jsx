@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const Question = ({
   qId,
@@ -8,16 +8,21 @@ const Question = ({
   correctAnswer,
   showResults,
   increaseCounter,
+  resetTimestamp,
 }) => {
-  const [answered, setAnswered] = React.useState(false);
   const [selected, setSelected] = React.useState("");
   const [correct, setCorrect] = React.useState(false);
 
-  const handleOptionClick = (option, key) => {
+  const handleOptionClick = (option) => {
     setSelected(option);
-    setAnswered(true);
     increaseCounter(qId);
   };
+
+  useEffect(() => {
+    // Reset the local state when the resetTimestamp changes
+    setSelected("");
+  }, [resetTimestamp]);
+
   return (
     <div>
       <h2>{question}</h2>
