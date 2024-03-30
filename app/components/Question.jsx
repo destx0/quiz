@@ -35,7 +35,6 @@ const Question = ({
   };
 
   useEffect(() => {
-    // Reset the local state when the resetTimestamp changes
     setSelected(null);
   }, [resetTimestamp]);
 
@@ -55,8 +54,23 @@ const Question = ({
             key={index}
             onClick={() => handleOptionClick(index, qId)}
             style={{
-              backgroundColor: index === selected ? "#4CAF50" : "#f0f0f0",
-              color: index === selected ? "white" : "black",
+              // If results are shown, and this is the correct answer, always green
+              backgroundColor:
+                showResults && index === correctAnswer
+                  ? "#4CAF50"
+                  : // If this is the selected option and it's wrong, show red
+                  showResults &&
+                    index === selected &&
+                    selected !== correctAnswer
+                  ? "#FF5733"
+                  : // If this is the selected option and it's correct or not showing results, show green
+                  index === selected
+                  ? "#4CAF50"
+                  : "#f0f0f0",
+              color:
+                index === selected || (showResults && index === correctAnswer)
+                  ? "white"
+                  : "black",
             }}
           >
             {option}
