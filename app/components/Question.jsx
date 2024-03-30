@@ -17,8 +17,21 @@ const Question = ({
     if (showResults) {
       return;
     }
+    let old = selected;
+    let adjustment = 0;
     setSelected(index);
-    increaseAttempted(qId);
+    if (index === correctAnswer) {
+      adjustment = 1;
+      if (old === correctAnswer) {
+        adjustment = 0;
+      }
+    } else {
+      if (old === correctAnswer) {
+        adjustment = -1;
+      }
+    }
+    const isCorrect = index === correctAnswer;
+    increaseAttempted(qId, adjustment);
   };
 
   useEffect(() => {
