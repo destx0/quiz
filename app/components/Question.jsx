@@ -55,8 +55,8 @@ const Question = ({
             key={index}
             onClick={() => handleOptionClick(index, qId)}
             style={{
-              backgroundColor: option === selected ? "#4CAF50" : "#f0f0f0",
-              color: option === selected ? "white" : "black",
+              backgroundColor: index === selected ? "#4CAF50" : "#f0f0f0",
+              color: index === selected ? "white" : "black",
             }}
           >
             {option}

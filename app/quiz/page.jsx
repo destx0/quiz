@@ -32,9 +32,17 @@ const page = () => {
 
   return (
     <div>
-      <h1>
-        {attempted.length}/{questions.length} {score}
-      </h1>
+      {showResults && (
+        <>
+          <h1>
+            score={score} total={questions.length}
+          </h1>
+          <h1>
+            {attempted.length}/{questions.length} {score}
+          </h1>
+        </>
+      )}
+
       <button onClick={handleSubmit}>Submit</button>
       <button onClick={handleReset}>Reset</button>
       <div>
