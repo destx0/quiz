@@ -38,7 +38,7 @@ const page = () => {
             score={score} total={questions.length}
           </h1>
           <h1>
-            {attempted.length}/{questions.length} {score}
+            attempted={attempted.length} total={questions.length}
           </h1>
         </>
       )}
