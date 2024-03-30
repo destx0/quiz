@@ -7,15 +7,18 @@ const Question = ({
   options,
   correctAnswer,
   showResults,
-  increaseCounter,
+  increaseAttempted,
   resetTimestamp,
 }) => {
   const [selected, setSelected] = React.useState("");
   const [correct, setCorrect] = React.useState(false);
 
   const handleOptionClick = (option) => {
+    if (showResults) {
+      return;
+    }
     setSelected(option);
-    increaseCounter(qId);
+    increaseAttempted(qId);
   };
 
   useEffect(() => {
