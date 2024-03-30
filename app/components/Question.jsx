@@ -23,7 +23,7 @@ const Question = ({
 
   useEffect(() => {
     // Reset the local state when the resetTimestamp changes
-    setSelected("");
+    setSelected(null);
   }, [resetTimestamp]);
 
   return (
@@ -32,9 +32,7 @@ const Question = ({
 
       {showResults &&
         (correctAnswer !== selected ? (
-          <p>
-            Correct Answer: {correctAnswer} 
-          </p>
+          <p>Correct Answer: {correctAnswer}</p>
         ) : (
           <p>Correct!</p>
         ))}
