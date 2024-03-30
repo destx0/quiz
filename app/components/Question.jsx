@@ -10,14 +10,14 @@ const Question = ({
   increaseAttempted,
   resetTimestamp,
 }) => {
-  const [selected, setSelected] = React.useState("");
+  const [selected, setSelected] = React.useState(null);
   const [correct, setCorrect] = React.useState(false);
 
-  const handleOptionClick = (option) => {
+  const handleOptionClick = (index, qId) => {
     if (showResults) {
       return;
     }
-    setSelected(option);
+    setSelected(index);
     increaseAttempted(qId);
   };
 
@@ -32,15 +32,17 @@ const Question = ({
 
       {showResults &&
         (correctAnswer !== selected ? (
-          <p>Correct Answer: {correctAnswer}</p>
+          <p>
+            Correct Answer: {correctAnswer} 
+          </p>
         ) : (
           <p>Correct!</p>
         ))}
       {options.map((option, index) => (
-        <>
+        <div key={index}>
           <button
             key={index}
-            onClick={() => handleOptionClick(option, qId)}
+            onClick={() => handleOptionClick(index, qId)}
             style={{
               backgroundColor: option === selected ? "#4CAF50" : "#f0f0f0",
               color: option === selected ? "white" : "black",
@@ -48,7 +50,7 @@ const Question = ({
           >
             {option}
           </button>
-        </>
+        </div>
       ))}
     </div>
   );
