@@ -44,7 +44,7 @@ const Question = ({
 
       {showResults &&
         (correctAnswer !== selected ? (
-          <p>Correct Answer: {correctAnswer}</p>
+          <p>Correct Answer: {options[correctAnswer]}</p>
         ) : (
           <p>Correct!</p>
         ))}

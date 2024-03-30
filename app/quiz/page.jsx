@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 import Question from "../components/Question";
-import { quiz } from "../data";
+import { questionsData } from "../data";
 import Submit from "../components/Submit";
 
-const questions = quiz.questions;
+const questions = questionsData;
 
 const page = () => {
   const [attempted, setAttempted] = React.useState([]);
