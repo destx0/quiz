@@ -32,7 +32,11 @@ const page = () => {
 
 	return (
 		<>
-			<Timer time={2} />
+			<Timer
+				time={2}
+				resetTimestamp={resetTimestamp}
+				submitStatus={showResults}
+			/>
 			{showResults && (
 				<>
 					<h1>

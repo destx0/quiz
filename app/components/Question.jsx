@@ -11,7 +11,6 @@ const Question = ({
 	resetTimestamp,
 }) => {
 	const [selected, setSelected] = React.useState(null);
-	const [correct, setCorrect] = React.useState(false);
 
 	const handleOptionClick = (index, qId) => {
 		if (showResults) {
@@ -38,6 +37,7 @@ const Question = ({
 		setSelected(null);
 	}, [resetTimestamp]);
 
+    
 	return (
 		<div>
 			<h2>{question}</h2>
