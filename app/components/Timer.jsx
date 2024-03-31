@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Countdown, { zeroPad } from "react-countdown";
 
 function Timer(props) {
-	const [completed, setCompleted] = useState(false);
+	const [testActive, setTestActive] = useState(true);
 	const [elapsed, setElapsed] = useState(0);
 	const startTimeRef = useRef(Date.now());
 	const [targetDate, setTargetDate] = useState(
@@ -14,7 +14,8 @@ function Timer(props) {
 		if (countdownRef.current) {
 			countdownRef.current.pause();
 		}
-		setCompleted(true);
+		setTestActive(false);
+		console.log("timer stopped= ", testActive);
 		calculateElapsedTime();
 	};
 
@@ -25,11 +26,12 @@ function Timer(props) {
 	};
 
 	const handleTimerReset = () => {
+		console.log("handleTimerReset");
 		const now = Date.now();
 		startTimeRef.current = now;
 		const newTargetDate = now + props.time * 1000 * 60;
 		setTargetDate(newTargetDate);
-		setCompleted(false);
+		setTestActive(true);
 		setElapsed(0);
 		if (countdownRef.current) {
 			countdownRef.current.getApi().start();
@@ -49,35 +51,34 @@ function Timer(props) {
 	};
 
 	useEffect(() => {
-		handleTimerReset();
+		console.log("resetTimestamp");
 	}, [props.resetTimestamp, props.time]);
 
-	// useEffect(() => {
-	// 	if (!completed) {
-	// 		countdownRef.current.getApi().start();
-	// 	}
-	// }, [targetDate, completed]);
-
 	useEffect(() => {
-		handleTimerStop();
+		console.log("submitStatus", props.submitStatus);
+		if (!props.submitStatus) {
+			handleTimerReset();
+		} else {
+			setTestActive(false);
+			handleTimerStop();
+		}
 	}, [props.submitStatus]);
 
+	useEffect(() => {
+		if (!testActive) handleTimerStop();
+	}, [props.showResults]);
 	return (
 		<div>
-			{completed ? (
+			{console.log("test active ", testActive)}
+			{testActive ? (
 				<>
+					active test
 					<Countdown
 						ref={countdownRef}
 						date={targetDate}
 						onComplete={handleTimerStop}
 						renderer={renderer}
 					/>
-					<h2>
-						Time taken: {formatElapsedTime(elapsed)}
-                        completed= 
-						{completed}
-					</h2>
-					<button onClick={handleTimerStop}>Stop</button>
 				</>
 			) : (
 				<>

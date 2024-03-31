@@ -24,6 +24,7 @@ const page = () => {
 		setAttempted([]);
 		setShowResults(false);
 		setResetTimestamp(Date.now());
+		console.log("resetTimestamp", resetTimestamp, showResults);
 	};
 	const increaseAttempted = (id, adjustment) => {
 		setScore((prevScore) => prevScore + adjustment);
@@ -32,6 +33,7 @@ const page = () => {
 
 	return (
 		<>
+			<div>sr{showResults}</div>
 			<Timer
 				time={2}
 				resetTimestamp={resetTimestamp}
