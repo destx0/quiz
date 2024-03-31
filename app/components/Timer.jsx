@@ -4,17 +4,11 @@ import Countdown, { zeroPad } from "react-countdown";
 function Timer(props) {
 	const [completed, setCompleted] = useState(false);
 	const [elapsed, setElapsed] = useState(0);
-	// Use useEffect to update startTimeRef and targetDate when props.resetTimestamp changes
 	const startTimeRef = useRef(Date.now());
 	const [targetDate, setTargetDate] = useState(
 		Date.now() + props.time * 1000 * 60
 	);
 	const countdownRef = useRef();
-
-	const handleCompletion = () => {
-		setCompleted(true);
-		calculateElapsedTime();
-	};
 
 	const handleTimerStop = () => {
 		if (countdownRef.current) {
@@ -55,15 +49,14 @@ function Timer(props) {
 	};
 
 	useEffect(() => {
-		// Automatically reset the timer when props.resetTimestamp changes
 		handleTimerReset();
 	}, [props.resetTimestamp, props.time]);
 
-	useEffect(() => {
-		if (!completed) {
-			countdownRef.current.getApi().start();
-		}
-	}, [targetDate, completed]);
+	// useEffect(() => {
+	// 	if (!completed) {
+	// 		countdownRef.current.getApi().start();
+	// 	}
+	// }, [targetDate, completed]);
 
 	useEffect(() => {
 		handleTimerStop();
@@ -71,7 +64,7 @@ function Timer(props) {
 
 	return (
 		<div>
-			{!completed ? (
+			{completed ? (
 				<>
 					<Countdown
 						ref={countdownRef}
@@ -79,11 +72,16 @@ function Timer(props) {
 						onComplete={handleTimerStop}
 						renderer={renderer}
 					/>
+					<h2>
+						Time taken: {formatElapsedTime(elapsed)}
+                        completed= 
+						{completed}
+					</h2>
 					<button onClick={handleTimerStop}>Stop</button>
 				</>
 			) : (
 				<>
-					<h1>done</h1>
+					<h1>done </h1>
 					<h2>Time taken: {formatElapsedTime(elapsed)}</h2>
 				</>
 			)}
