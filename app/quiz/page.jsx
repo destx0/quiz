@@ -33,13 +33,13 @@ const page = () => {
 
 	return (
 		<>
+			<button onClick={handleReset}>Reset</button>
+			{!showResults && <button onClick={handleSubmit}>Submit</button>}
 			<Timer
 				time={0.5}
 				resetTimestamp={resetTimestamp}
 				submitStatus={showResults}
 			/>
-			<button onClick={handleReset}>Reset</button>
-			{!showResults && <button onClick={handleSubmit}>Submit</button>}
 			{showResults && (
 				<>
 					<p>
