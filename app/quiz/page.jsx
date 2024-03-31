@@ -33,25 +33,24 @@ const page = () => {
 
 	return (
 		<>
-			<div>sr{showResults}</div>
 			<Timer
-				time={2}
+				time={0.5}
 				resetTimestamp={resetTimestamp}
 				submitStatus={showResults}
 			/>
+			<button onClick={handleReset}>Reset</button>
+			{!showResults && <button onClick={handleSubmit}>Submit</button>}
 			{showResults && (
 				<>
-					<h1>
+					<p>
 						score={score} total={questions.length}
-					</h1>
-					<h1>
+					</p>
+					<p>
 						attempted={attempted.length} total={questions.length}
-					</h1>
+					</p>
 				</>
 			)}
 
-			<button onClick={handleSubmit}>Submit</button>
-			<button onClick={handleReset}>Reset</button>
 			<div>
 				{questions.map((item, index) => (
 					<Question

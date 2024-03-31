@@ -52,6 +52,7 @@ function Timer(props) {
 
 	useEffect(() => {
 		console.log("resetTimestamp");
+		handleTimerReset();
 	}, [props.resetTimestamp, props.time]);
 
 	useEffect(() => {
@@ -69,10 +70,8 @@ function Timer(props) {
 	}, [props.showResults]);
 	return (
 		<div>
-			{console.log("test active ", testActive)}
 			{testActive ? (
 				<>
-					active test
 					<Countdown
 						ref={countdownRef}
 						date={targetDate}
@@ -82,8 +81,7 @@ function Timer(props) {
 				</>
 			) : (
 				<>
-					<h1>done </h1>
-					<h2>Time taken: {formatElapsedTime(elapsed)}</h2>
+					<p>Time taken: {formatElapsedTime(elapsed)}</p>
 				</>
 			)}
 		</div>
