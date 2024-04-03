@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Fancytext from "./Fancytext";
 
 const Question = ({
 	qId,
@@ -37,10 +38,9 @@ const Question = ({
 		setSelected(null);
 	}, [resetTimestamp]);
 
-    
 	return (
 		<div>
-			<h2>{question}</h2>
+			<Fancytext content={question} />
 
 			{showResults &&
 				(correctAnswer !== selected ? (
