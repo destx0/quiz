@@ -40,6 +40,7 @@ const Question = ({
 
 	return (
 		<div>
+			<p>Question {qId + 1}</p>
 			<Fancytext content={question} />
 
 			{showResults &&
