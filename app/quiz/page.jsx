@@ -69,5 +69,15 @@ const page = () => {
 		</>
 	);
 };
+// export const getServerSideProps = async () => {
+// 	const questions = await fetch("http://example.com/api/questions")
+// 		.then((res) => res.json())
+// 		.catch((err) => console.error(err));
 
+// 	return {
+// 		props: {
+// 			questions,
+// 		},
+// 	};
+// };
 export default page;
