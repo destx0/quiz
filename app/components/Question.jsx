@@ -10,6 +10,7 @@ const Question = ({
 	showResults,
 	increaseAttempted,
 	resetTimestamp,
+	explanation,
 }) => {
 	const [selected, setSelected] = React.useState(null);
 
@@ -55,17 +56,14 @@ const Question = ({
 						key={index}
 						onClick={() => handleOptionClick(index, qId)}
 						style={{
-							// If results are shown, and this is the correct answer, always green
 							backgroundColor:
 								showResults && index === correctAnswer
 									? "#4CAF50"
-									: // If this is the selected option and it's wrong, show red
-									showResults &&
+									: showResults &&
 									  index === selected &&
 									  selected !== correctAnswer
 									? "#FF5733"
-									: // If this is the selected option and it's correct or not showing results, show green
-									index === selected
+									: index === selected
 									? "#4CAF50"
 									: "#f0f0f0",
 							color:
@@ -79,6 +77,16 @@ const Question = ({
 					</button>
 				</div>
 			))}
+			{showResults && (
+				<>
+					{correctAnswer !== selected ? (
+						<p>Correct Answer: {options[correctAnswer]}</p>
+					) : (
+						<p>Correct!</p>
+					)}
+					<Fancytext content={explanation} />
+				</>
+			)}
 		</div>
 	);
 };

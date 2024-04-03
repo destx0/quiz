@@ -62,6 +62,7 @@ const page = () => {
 						showResults={showResults}
 						increaseAttempted={increaseAttempted}
 						resetTimestamp={resetTimestamp}
+						explanation={item.explanation}
 					/>
 				))}
 			</div>
