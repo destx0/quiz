@@ -1,6 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Fancytext from "./FancyText";
+import { Button } from "@/components/ui/button";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const Question = ({
 	qId,
@@ -40,43 +50,34 @@ const Question = ({
 	}, [resetTimestamp]);
 
 	return (
-		<div>
-			<p>Question {qId + 1}</p>
+		<Card className="m-4 p-8">
+			<CardTitle>Question {qId + 1}</CardTitle>
 			<Fancytext content={question} />
 
-			{showResults &&
-				(correctAnswer !== selected ? (
-					<p>Correct Answer: {options[correctAnswer]}</p>
-				) : (
-					<p>Correct!</p>
-				))}
-			{options.map((option, index) => (
-				<div key={index}>
-					<button
-						key={index}
-						onClick={() => handleOptionClick(index, qId)}
-						style={{
-							backgroundColor:
-								showResults && index === correctAnswer
-									? "#4CAF50"
-									: showResults &&
-									  index === selected &&
-									  selected !== correctAnswer
-									? "#FF5733"
-									: index === selected
-									? "#4CAF50"
-									: "#f0f0f0",
-							color:
-								index === selected ||
-								(showResults && index === correctAnswer)
-									? "white"
-									: "black",
-						}}
-					>
-						{option}
-					</button>
-				</div>
-			))}
+			<RadioGroup>
+				{" "}
+				{options.map((option, index) => (
+					<div key={index}>
+						{" "}
+						<Button
+							key={index}
+							onClick={() => handleOptionClick(index, qId)}
+							className={`
+    ${showResults && index === correctAnswer ? "bg-green-500 text-white" : ""}
+    ${
+		showResults && index === selected && selected !== correctAnswer
+			? "bg-red-500 text-white"
+			: ""
+	}
+    ${index === selected ? "bg-green-500 text-white" : "bg-gray-100 text-black"}
+    px-4 py-2 rounded
+  `}
+						>
+							{option}
+						</Button>{" "}
+					</div>
+				))}{" "}
+			</RadioGroup>
 			{showResults && (
 				<>
 					{correctAnswer !== selected ? (
@@ -87,7 +88,7 @@ const Question = ({
 					<Fancytext content={explanation} />
 				</>
 			)}
-		</div>
+		</Card>
 	);
 };
 

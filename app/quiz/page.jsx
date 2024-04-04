@@ -5,6 +5,7 @@ import { questionsData } from "../data";
 import Submit from "../components/Submit";
 import Timer from "../components/Timer";
 const questions = questionsData;
+import { Button } from "@/components/ui/button";
 
 const page = () => {
 	const [attempted, setAttempted] = React.useState([]);
@@ -33,8 +34,14 @@ const page = () => {
 
 	return (
 		<>
-			<button onClick={handleReset}>Reset</button>
-			{!showResults && <button onClick={handleSubmit}>Submit</button>}
+			<Button onClick={handleReset} className="px-6 py-3 m-4">
+				Reset
+			</Button>
+			{!showResults && (
+				<Button onClick={handleSubmit} className="px-6 py-3 m-4">
+					Submit
+				</Button>
+			)}
 			<Timer
 				time={0.5}
 				resetTimestamp={resetTimestamp}
