@@ -76,7 +76,12 @@ const Question = ({
 							}`}
 						>
 							{option}
-						</Button>{" "}
+							{/* {index === selected && showResults
+								? index === correctAnswer
+									? "   correct"
+									: "   wrong"
+								: ""} */}
+						</Button>
 					</div>
 				))}{" "}
 			</RadioGroup>
