@@ -58,7 +58,6 @@ const Question = ({
 			<RadioGroup>
 				{options.map((option, index) => (
 					<div key={index}>
-						{" "}
 						<Button
 							key={index}
 							onClick={() => handleOptionClick(index, qId)}
@@ -74,11 +73,6 @@ const Question = ({
 							}`}
 						>
 							{option}
-							{/* {index === selected && showResults
-								? index === correctAnswer
-									? "   correct"
-									: "   wrong"
-								: ""} */}
 						</Button>
 					</div>
 				))}{" "}
