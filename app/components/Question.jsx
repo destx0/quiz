@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Fancytext from "./Fancytext";
+import Fancytext from "./FancyText";
 
 const Question = ({
 	qId,

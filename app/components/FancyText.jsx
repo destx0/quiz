@@ -18,13 +18,12 @@ And here is an image:
 ![alt text](image-url.jpg)
 `;
 
-const MarkdownComponent = (props) => (
+const FancyText = (props) => (
 	<ReactMarkdown
 		children={props.content}
 		remarkPlugins={[remarkMath]}
 		rehypePlugins={[rehypeKatex]}
 	/>
-	
 );
 
-export default MarkdownComponent;
+export default FancyText;
