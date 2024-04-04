@@ -55,7 +55,6 @@ const Question = ({
 			<CardDescription className="my-8 mx-2">
 				<Fancytext content={question} />
 			</CardDescription>
-			<p>{correctAnswer}</p>
 			<RadioGroup>
 				{" "}
 				{options.map((option, index) => (
