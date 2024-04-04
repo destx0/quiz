@@ -41,7 +41,7 @@ const Question = ({
 				adjustment = -1;
 			}
 		}
-		const isCorrect = index === correctAnswer;
+
 		increaseAttempted(qId, adjustment);
 	};
 
@@ -52,8 +52,10 @@ const Question = ({
 	return (
 		<Card className="m-4 p-8">
 			<CardTitle>Question {qId + 1}</CardTitle>
-			<Fancytext content={question} />
-
+			<CardDescription className="my-8 mx-2">
+				<Fancytext content={question} />
+			</CardDescription>
+			<p>{correctAnswer}</p>
 			<RadioGroup>
 				{" "}
 				{options.map((option, index) => (
@@ -62,16 +64,16 @@ const Question = ({
 						<Button
 							key={index}
 							onClick={() => handleOptionClick(index, qId)}
-							className={`
-    ${showResults && index === correctAnswer ? "bg-green-500 text-white" : ""}
-    ${
-		showResults && index === selected && selected !== correctAnswer
-			? "bg-red-500 text-white"
-			: ""
-	}
-    ${index === selected ? "bg-green-500 text-white" : "bg-gray-100 text-black"}
-    px-4 py-2 rounded
-  `}
+							className={`px-4 py-2 w-full justify-start
+							${
+								index === selected
+									? showResults
+										? index === correctAnswer
+											? "bg-green-500 text-white"
+											: "bg-red-500 text-white"
+										: ""
+									: "bg-gray-200 text-black"
+							}`}
 						>
 							{option}
 						</Button>{" "}
@@ -81,7 +83,9 @@ const Question = ({
 			{showResults && (
 				<>
 					{correctAnswer !== selected ? (
-						<p>Correct Answer: {options[correctAnswer]}</p>
+						<CardDescription>
+							Correct Answer: {options[correctAnswer]}
+						</CardDescription>
 					) : (
 						<p>Correct!</p>
 					)}
