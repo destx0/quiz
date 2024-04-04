@@ -6,6 +6,7 @@ import Submit from "../components/Submit";
 import Timer from "../components/Timer";
 const questions = questionsData;
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 
 const page = () => {
 	const [attempted, setAttempted] = React.useState([]);
@@ -34,31 +35,37 @@ const page = () => {
 
 	return (
 		<>
-			{showResults ? (
-				<Button onClick={handleReset} className="px-6 py-3 m-4">
-					Reset
-				</Button>
-			) : (
-				<Button onClick={handleSubmit} className="px-6 py-3 m-4">
-					Submit
-				</Button>
-			)}
-			<Timer
-				time={0.5}
-				resetTimestamp={resetTimestamp}
-				submitStatus={showResults}
-			/>
-			{showResults && (
-				<>
-					<p>
-						score={score} total={questions.length}
-					</p>
-					<p>
-						attempted={attempted.length} total={questions.length}
-					</p>
-				</>
-			)}
-
+			<div className="sticky top-0 bg-blue/30 backdrop-blur-sm p-4 rounded-md">
+				{showResults ? (
+					<Button onClick={handleReset} className="px-6 py-3 m-4">
+						Reset
+					</Button>
+				) : (
+					<Button onClick={handleSubmit} className="px-6 py-3 m-4">
+						Submit
+					</Button>
+				)}
+				<Timer
+					time={0.5}
+					resetTimestamp={resetTimestamp}
+					submitStatus={showResults}
+				/>
+				<Progress
+					value={(attempted.length / questions.length) * 100}
+					className="  mx-auto max-w-xl m-8 "
+				/>
+				{showResults && (
+					<>
+						<p>
+							score={score} total={questions.length}
+						</p>
+						<p>
+							attempted={attempted.length} total=
+							{questions.length}
+						</p>
+					</>
+				)}
+			</div>
 			<div>
 				{questions.map((item, index) => (
 					<Question
