@@ -34,10 +34,11 @@ const page = () => {
 
 	return (
 		<>
-			<Button onClick={handleReset} className="px-6 py-3 m-4">
-				Reset
-			</Button>
-			{!showResults && (
+			{showResults ? (
+				<Button onClick={handleReset} className="px-6 py-3 m-4">
+					Reset
+				</Button>
+			) : (
 				<Button onClick={handleSubmit} className="px-6 py-3 m-4">
 					Submit
 				</Button>

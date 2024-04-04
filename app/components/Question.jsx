@@ -50,13 +50,12 @@ const Question = ({
 	}, [resetTimestamp]);
 
 	return (
-		<Card className="m-4 p-8">
+		<Card className="max-w-2xl mx-auto m-4 p-8 ">
 			<CardTitle>Question {qId + 1}</CardTitle>
-			<CardDescription className="my-8 mx-2">
+			<CardDescription className="my-8 mx-2 overflow-x-auto">
 				<Fancytext content={question} />
 			</CardDescription>
 			<RadioGroup>
-				{" "}
 				{options.map((option, index) => (
 					<div key={index}>
 						{" "}
