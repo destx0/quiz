@@ -1,6 +1,24 @@
 import React, { useState, useRef, useEffect } from "react";
 import Countdown, { zeroPad } from "react-countdown";
 
+const handleTimerReset = (
+	startTimeRef,
+	setTargetDate,
+	props,
+	setTestActive,
+	countdownRef
+) => {
+	console.log("handleTimerReset");
+	const now = Date.now();
+	startTimeRef.current = now;
+	const newTargetDate = now + props.time * 1000 * 60;
+	setTargetDate(newTargetDate);
+	setTestActive(true);
+	if (countdownRef.current) {
+		countdownRef.current.getApi().start();
+	}
+};
+
 function Timer(props) {
 	const [testActive, setTestActive] = useState(true);
 	const [elapsed, setElapsed] = useState(0);
@@ -16,26 +34,6 @@ function Timer(props) {
 		}
 		setTestActive(false);
 		console.log("timer stopped= ", testActive);
-		calculateElapsedTime();
-	};
-
-	const calculateElapsedTime = () => {
-		const now = Date.now();
-		const elapsedTimeInSeconds = (now - startTimeRef.current) / 1000;
-		setElapsed(elapsedTimeInSeconds);
-	};
-
-	const handleTimerReset = () => {
-		console.log("handleTimerReset");
-		const now = Date.now();
-		startTimeRef.current = now;
-		const newTargetDate = now + props.time * 1000 * 60;
-		setTargetDate(newTargetDate);
-		setTestActive(true);
-		setElapsed(0);
-		if (countdownRef.current) {
-			countdownRef.current.getApi().start();
-		}
 	};
 
 	const renderer = ({ hours, minutes, seconds }) => (
@@ -52,22 +50,44 @@ function Timer(props) {
 
 	useEffect(() => {
 		console.log("resetTimestamp");
-		handleTimerReset();
+		handleTimerReset(
+			startTimeRef,
+			setTargetDate,
+			props,
+			setTestActive,
+			countdownRef
+		);
 	}, [props.resetTimestamp, props.time]);
 
 	useEffect(() => {
 		console.log("submitStatus", props.submitStatus);
 		if (!props.submitStatus) {
-			handleTimerReset();
+			handleTimerReset(
+				startTimeRef,
+				setTargetDate,
+				props,
+				setTestActive,
+				countdownRef
+			);
 		} else {
-			setTestActive(false);
 			handleTimerStop();
 		}
 	}, [props.submitStatus]);
 
 	useEffect(() => {
-		if (!testActive) handleTimerStop();
+		if (props.showResults) {
+			handleTimerStop();
+		}
 	}, [props.showResults]);
+
+	useEffect(() => {
+		return () => {
+			const elapsedTimeInSeconds =
+				(Date.now() - startTimeRef.current) / 1000;
+			setElapsed(elapsedTimeInSeconds);
+		};
+	}, []);
+
 	return (
 		<div>
 			{testActive ? (
