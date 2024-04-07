@@ -10,6 +10,14 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components/ui/accordion";
+
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const Question = ({
@@ -83,16 +91,14 @@ const Question = ({
 			</RadioGroup>
 			{showResults && (
 				<>
-					{correctAnswer !== selected ? (
-						<CardDescription className="my-8">
-							Correct Answer: {options[correctAnswer]}
-						</CardDescription>
-					) : (
-						<p>Correct!</p>
-					)}
-					<CardFooter>
-						<Fancytext content={explanation} />
-					</CardFooter>
+					<Accordion type="single" collapsible>
+						<AccordionItem value="item-1">
+							<AccordionTrigger>
+								Correct Answer: {options[correctAnswer]}
+							</AccordionTrigger>
+							<AccordionContent>{explanation}</AccordionContent>
+						</AccordionItem>
+					</Accordion>
 				</>
 			)}
 		</Card>
