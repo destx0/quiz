@@ -52,7 +52,7 @@ const Question = ({
 	return (
 		<Card className="max-w-2xl mx-auto m-4 p-8 ">
 			<CardTitle>Question {qId + 1}</CardTitle>
-			<CardDescription className="my-8 mx-2 overflow-x-auto">
+			<CardDescription className="my-8  overflow-x-auto">
 				<Fancytext content={question} />
 			</CardDescription>
 			<RadioGroup>
@@ -61,7 +61,7 @@ const Question = ({
 						<Button
 							key={index}
 							onClick={() => handleOptionClick(index, qId)}
-							className={`px-4 py-2 w-full justify-start
+							className={`px-4 py-2 w-full justify-start 
 							${
 								index === selected
 									? showResults
@@ -69,6 +69,10 @@ const Question = ({
 											? "bg-green-500 text-white"
 											: "bg-red-500 text-white"
 										: ""
+									: showResults
+									? index === correctAnswer
+										? "bg-green-500 text-white"
+										: "bg-gray-200 text-black"
 									: "bg-gray-200 text-black"
 							}`}
 						>
