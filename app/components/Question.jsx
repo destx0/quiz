@@ -52,7 +52,7 @@ const Question = ({
 	return (
 		<Card className="max-w-2xl mx-auto m-4 p-8 ">
 			<CardTitle>Question {qId + 1}</CardTitle>
-			<CardDescription className="my-8  overflow-x-auto">
+			<CardDescription className="my-4  overflow-x-auto">
 				<Fancytext content={question} />
 			</CardDescription>
 			<RadioGroup>
@@ -84,13 +84,15 @@ const Question = ({
 			{showResults && (
 				<>
 					{correctAnswer !== selected ? (
-						<CardDescription>
+						<CardDescription className="my-8">
 							Correct Answer: {options[correctAnswer]}
 						</CardDescription>
 					) : (
 						<p>Correct!</p>
 					)}
-					<Fancytext content={explanation} />
+					<CardFooter>
+						<Fancytext content={explanation} />
+					</CardFooter>
 				</>
 			)}
 		</Card>
