@@ -7,6 +7,7 @@ import Timer from "../components/Timer";
 const questions = questionsData;
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import ResultChart from "../components/ResultChart";
 
 const page = () => {
 	const [attempted, setAttempted] = React.useState([]);
@@ -36,6 +37,7 @@ const page = () => {
 	return (
 		<>
 			<div className="sticky top-0 bg-blue/30 backdrop-blur-sm p-4 rounded-md">
+				<ResultChart />
 				{showResults ? (
 					<Button onClick={handleReset} className="px-6 py-3 m-4">
 						Reset
@@ -50,10 +52,7 @@ const page = () => {
 					resetTimestamp={resetTimestamp}
 					submitStatus={showResults}
 				/>
-				<Progress
-					value={(attempted.length / questions.length) * 100}
-					className="  mx-auto max-w-xl m-8 "
-				/>
+
 				{showResults && (
 					<>
 						<p>
