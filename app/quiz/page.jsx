@@ -36,7 +36,7 @@ const page = () => {
 
 	return (
 		<>
-			<div className="sticky top-0 bg-blue/30 backdrop-blur-sm bg-zinc-900/80  rounded-md flex items-center gap-4 p-4">
+			<div className="sticky top-0 z-40 bg-blue/30 backdrop-blur-sm bg-zinc-900/80  rounded-md flex items-center gap-4 p-4">
 				<Timer
 					time={0.5}
 					resetTimestamp={resetTimestamp}
@@ -59,33 +59,24 @@ const page = () => {
 					</Button>
 				)}
 			</div>
-			<div>
+			<div className="flex flex-col items-center w-full max-w-2xl mx-auto">
 				{questions.map((item, index) => (
-					<Question
-						key={index}
-						qId={index}
-						question={item.question}
-						options={item.options}
-						correctAnswer={item.correctAnswer}
-						showResults={showResults}
-						increaseAttempted={increaseAttempted}
-						resetTimestamp={resetTimestamp}
-						explanation={item.explanation}
-					/>
+					<div key={index} className="relative w-full p-4 mb-4 ">
+						<Question
+							qId={index}
+							question={item.question}
+							options={item.options}
+							correctAnswer={item.correctAnswer}
+							showResults={showResults}
+							increaseAttempted={increaseAttempted}
+							resetTimestamp={resetTimestamp}
+							explanation={item.explanation}
+						/>
+					</div>
 				))}
 			</div>
 		</>
 	);
 };
-// export const getServerSideProps = async () => {
-// 	const questions = await fetch("http://example.com/api/questions")
-// 		.then((res) => res.json())
-// 		.catch((err) => console.error(err));
 
-// 	return {
-// 		props: {
-// 			questions,
-// 		},
-// 	};
-// };
 export default page;
