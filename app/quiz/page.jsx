@@ -36,8 +36,19 @@ const page = () => {
 
 	return (
 		<>
-			<div className="sticky top-0 bg-blue/30 backdrop-blur-sm p-4 rounded-md">
-				<ResultChart />
+			<div className="sticky top-0 bg-blue/30 backdrop-blur-sm bg-zinc-900/80  rounded-md flex items-center gap-4">
+				<Timer
+					time={0.5}
+					resetTimestamp={resetTimestamp}
+					submitStatus={showResults}
+				/>
+				<ResultChart
+					right={score}
+					wrong={attempted.length - score}
+					unattempted={questions.length - attempted.length}
+					totalProblems={questions.length}
+					showResults={showResults}
+				/>
 				{showResults ? (
 					<Button onClick={handleReset} className="px-6 py-3 m-4">
 						Reset
@@ -47,23 +58,6 @@ const page = () => {
 						Submit
 					</Button>
 				)}
-				<Timer
-					time={0.5}
-					resetTimestamp={resetTimestamp}
-					submitStatus={showResults}
-				/>
-
-				{/* {showResults && (
-					<>
-						<p>
-							score={score} total={questions.length}
-						</p>
-						<p>
-							attempted={attempted.length} total=
-							{questions.length}
-						</p>
-					</>
-				)} */}
 			</div>
 			<div>
 				{questions.map((item, index) => (

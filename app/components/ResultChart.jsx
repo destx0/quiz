@@ -10,17 +10,22 @@ import {
 	ResponsiveContainer,
 } from "recharts";
 
-const data = [
-	{
-		name: "Problem Status",
-		right: 5,
-		wrong: 5,
-		unattempted: 15,
-	},
-];
+const ResultChart = (props) => {
+	const right = props.right;
+	const wrong = props.wrong;
+	const unattempted = props.unattempted;
+	const totalProblems = props.totalProblems;
+	const showResults = props.showResults;
 
-const ResultChart = () => {
-	const totalProblems = data[0].right + data[0].wrong + data[0].unattempted;
+	const data = [
+		{
+			name: "Questions",
+			right: right,
+			wrong: wrong,
+			attempted: right + wrong,
+			unattempted: unattempted,
+		},
+	];
 
 	return (
 		<ResponsiveContainer width="100%" height={100}>
@@ -43,18 +48,30 @@ const ResultChart = () => {
 					contentStyle={{ backgroundColor: "#171d27", color: "#fff" }}
 				/>{" "}
 				<Legend wrapperStyle={{ color: "#f0f0f0" }} />{" "}
-				<Bar
-					dataKey="right"
-					stackId="a"
-					fill="rgba(16, 185, 129, 1)"
-					name={`Right (${data[0].right})`}
-				/>{" "}
-				<Bar
-					dataKey="wrong"
-					stackId="a"
-					fill="rgba(239, 68, 68, 1)"
-					name={`Wrong (${data[0].wrong})`}
-				/>{" "}
+				{showResults && (
+					<Bar
+						dataKey="right"
+						stackId="a"
+						fill="rgba(16, 185, 129, 1)"
+						name={`Right (${data[0].right})`}
+					/>
+				)}{" "}
+				{showResults && (
+					<Bar
+						dataKey="wrong"
+						stackId="a"
+						fill="rgba(239, 68, 68, 1)"
+						name={`Wrong (${data[0].wrong})`}
+					/>
+				)}{" "}
+				{!showResults && (
+					<Bar
+						dataKey="attempted"
+						stackId="a"
+						fill="hsl(221.2, 83.2%, 53.3%)"
+						name={`Attempted (${data[0].attempted})`}
+					/>
+				)}{" "}
 				<Bar
 					dataKey="unattempted"
 					stackId="a"
