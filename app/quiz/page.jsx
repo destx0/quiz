@@ -36,7 +36,7 @@ const page = () => {
 
 	return (
 		<>
-			<div className="sticky top-0 bg-blue/30 backdrop-blur-sm bg-zinc-900/80  rounded-md flex items-center gap-4">
+			<div className="sticky top-0 bg-blue/30 backdrop-blur-sm bg-zinc-900/80  rounded-md flex items-center gap-4 p-4">
 				<Timer
 					time={0.5}
 					resetTimestamp={resetTimestamp}
