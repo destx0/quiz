@@ -7,10 +7,9 @@ import { GridBackgroundDemo } from "@/components/ui/gridBackground";
 const page = () => {
 	return (
 		<>
-			{" "}
 			<ResultChart />
-			<GridBackgroundDemo />
-			<QuillEditor />
+			{/* <GridBackgroundDemo /> */}
+			{/* <QuillEditor /> */}
 			<p>about</p>
 		</>
 	);
