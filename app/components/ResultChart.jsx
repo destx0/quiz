@@ -24,44 +24,44 @@ const ResultChart = () => {
 
 	return (
 		<ResponsiveContainer width="100%" height={100}>
+			{" "}
 			<BarChart
 				data={data}
 				layout="vertical"
-				margin={{
-					top: 20,
-					right: 30,
-					left: 20,
-					bottom: 5,
-				}}
+				margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
 			>
-				<CartesianGrid strokeDasharray="3 3" />
+				{" "}
+				<CartesianGrid strokeDasharray="3 3" />{" "}
 				<XAxis
 					type="number"
 					domain={[0, totalProblems]}
 					stroke="#f0f0f0"
-				/>
-				<YAxis type="category" dataKey="name" stroke="#f0f0f0" />
-				<Tooltip contentStyle={{ color: "#f0f0f0" }} />
-				<Legend wrapperStyle={{ color: "#f0f0f0" }} />
+					tickFormatter={() => ""}
+				/>{" "}
+				<YAxis type="category" dataKey="name" stroke="#f0f0f0" />{" "}
+				<Tooltip
+					contentStyle={{ backgroundColor: "#171d27", color: "#fff" }}
+				/>{" "}
+				<Legend wrapperStyle={{ color: "#f0f0f0" }} />{" "}
 				<Bar
 					dataKey="right"
 					stackId="a"
 					fill="rgba(16, 185, 129, 1)"
 					name={`Right (${data[0].right})`}
-				/>
+				/>{" "}
 				<Bar
 					dataKey="wrong"
 					stackId="a"
 					fill="rgba(239, 68, 68, 1)"
 					name={`Wrong (${data[0].wrong})`}
-				/>
+				/>{" "}
 				<Bar
 					dataKey="unattempted"
 					stackId="a"
 					fill="#ccd2e4f4"
 					name={`Unattempted (${data[0].unattempted})`}
-				/>
-			</BarChart>
+				/>{" "}
+			</BarChart>{" "}
 		</ResponsiveContainer>
 	);
 };

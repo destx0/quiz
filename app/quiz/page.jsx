@@ -53,7 +53,7 @@ const page = () => {
 					submitStatus={showResults}
 				/>
 
-				{showResults && (
+				{/* {showResults && (
 					<>
 						<p>
 							score={score} total={questions.length}
@@ -63,7 +63,7 @@ const page = () => {
 							{questions.length}
 						</p>
 					</>
-				)}
+				)} */}
 			</div>
 			<div>
 				{questions.map((item, index) => (
