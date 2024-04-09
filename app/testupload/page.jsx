@@ -53,42 +53,39 @@ const testFormSchema = z.object({
 	totalTime: z.coerce.number().min(1, "Total time must be greater than 0"),
 	questions: z.string().min(1, "Questions are required"),
 });
+
 const TestForm = () => {
-	const form = useForm({
-		resolver: zodResolver(testFormSchema),
-	});
+	const form = useForm({ resolver: zodResolver(testFormSchema) });
 
 	const [isUploading, setIsUploading] = useState(false);
 	const [isUploadSuccess, setIsUploadSuccess] = useState(false);
+	const [numQuestionsUploaded, setNumQuestionsUploaded] = useState(0);
 
 	const onSubmit = async (data) => {
 		try {
 			setIsUploading(true);
-
 			// Parse the questions JSON string into an array
 			const parsedQuestions = JSON.parse(data.questions);
-
 			// Validate the parsed questions against the questionSchema
 			const validatedQuestions = z
 				.array(questionSchema)
 				.parse(parsedQuestions);
-
 			// Upload the test data to Firebase Firestore
 			const testData = {
 				testName: data.testName,
 				testType: data.testType,
 				totalTime: data.totalTime,
 				questions: validatedQuestions,
+				numQuestions: validatedQuestions.length,
 			};
-
 			const docRef = await addDoc(
 				collection(db, data.testType),
 				testData
 			);
 			console.log("Test uploaded successfully. Document ID:", docRef.id);
-
 			setIsUploading(false);
 			setIsUploadSuccess(true);
+			setNumQuestionsUploaded(validatedQuestions.length);
 		} catch (error) {
 			console.error("Error uploading test:", error);
 			setIsUploading(false);
@@ -189,8 +186,13 @@ const TestForm = () => {
 						<DialogTitle>Upload Successful</DialogTitle>
 						<DialogDescription>
 							The test data has been uploaded successfully.
+							<p>
+								Number of questions uploaded:{" "}
+								{numQuestionsUploaded}
+							</p>
 						</DialogDescription>
 					</DialogHeader>
+
 					<DialogFooter>
 						<Button onClick={() => setIsUploadSuccess(false)}>
 							OK
