@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +24,16 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { collection, addDoc } from "firebase/firestore";
 import db from "@/services/firebase-config";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
+import { Progress } from "@/components/ui/progress";
 
 const questionSchema = z.object({
 	question: z.string().min(1, "Question is required"),
@@ -43,14 +53,18 @@ const testFormSchema = z.object({
 	totalTime: z.coerce.number().min(1, "Total time must be greater than 0"),
 	questions: z.string().min(1, "Questions are required"),
 });
-
 const TestForm = () => {
 	const form = useForm({
 		resolver: zodResolver(testFormSchema),
 	});
 
+	const [isUploading, setIsUploading] = useState(false);
+	const [isUploadSuccess, setIsUploadSuccess] = useState(false);
+
 	const onSubmit = async (data) => {
 		try {
+			setIsUploading(true);
+
 			// Parse the questions JSON string into an array
 			const parsedQuestions = JSON.parse(data.questions);
 
@@ -72,8 +86,12 @@ const TestForm = () => {
 				testData
 			);
 			console.log("Test uploaded successfully. Document ID:", docRef.id);
+
+			setIsUploading(false);
+			setIsUploadSuccess(true);
 		} catch (error) {
 			console.error("Error uploading test:", error);
+			setIsUploading(false);
 		}
 	};
 
@@ -164,6 +182,22 @@ const TestForm = () => {
 					Submit
 				</Button>
 			</form>
+			{isUploading && <Progress value={50} className="w-full h-2 mt-4" />}
+			<Dialog open={isUploadSuccess} onOpenChange={setIsUploadSuccess}>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle>Upload Successful</DialogTitle>
+						<DialogDescription>
+							The test data has been uploaded successfully.
+						</DialogDescription>
+					</DialogHeader>
+					<DialogFooter>
+						<Button onClick={() => setIsUploadSuccess(false)}>
+							OK
+						</Button>
+					</DialogFooter>
+				</DialogContent>
+			</Dialog>
 		</Form>
 	);
 };
