@@ -97,11 +97,14 @@ function Timer(props) {
 						date={targetDate}
 						onComplete={handleTimerStop}
 						renderer={renderer}
+						className="text-grey-200"
 					/>
 				</>
 			) : (
 				<>
-					<p>Time taken: {formatElapsedTime(elapsed)}</p>
+					<p className="text-gray-200">
+						Time taken: {formatElapsedTime(elapsed)}
+					</p>
 				</>
 			)}
 		</div>

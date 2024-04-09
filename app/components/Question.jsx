@@ -58,7 +58,7 @@ const Question = ({
 	}, [resetTimestamp]);
 
 	return (
-		<Card className="max-w-2xl mx-auto m-4 p-8 ">
+		<Card className="max-w-2xl mx-auto  p-8 ">
 			<CardTitle>Question {qId + 1}</CardTitle>
 			<CardDescription className="my-4  overflow-x-auto">
 				<Fancytext content={question} />
