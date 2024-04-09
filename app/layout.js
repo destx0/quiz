@@ -14,6 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className='light'>
       <body>
         <Providers>
+          
           {children}
         </Providers>
       </body>
