@@ -1,7 +1,10 @@
 "use client";
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import {
 	Form,
 	FormControl,
@@ -19,13 +22,59 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { collection, addDoc } from "firebase/firestore";
+import db from "@/services/firebase-config";
+
+const questionSchema = z.object({
+	question: z.string().min(1, "Question is required"),
+	options: z
+		.array(z.string().min(1, "Option is required"))
+		.min(2, "At least 2 options are required"),
+	correctAnswerIndex: z
+		.number()
+		.min(0, "Correct answer index must be a non-negative integer"),
+	explanation: z.string().optional(),
+	tags: z.array(z.string()).optional(),
+});
+
+const testFormSchema = z.object({
+	testName: z.string().min(1, "Test name is required"),
+	testType: z.enum(["topicwise", "subjectwise", "full", "mix"]),
+	totalTime: z.coerce.number().min(1, "Total time must be greater than 0"),
+	questions: z.string().min(1, "Questions are required"),
+});
 
 const TestForm = () => {
-	const form = useForm();
+	const form = useForm({
+		resolver: zodResolver(testFormSchema),
+	});
 
-	const onSubmit = (data) => {
-		// Handle form submission
-		console.log(data);
+	const onSubmit = async (data) => {
+		try {
+			// Parse the questions JSON string into an array
+			const parsedQuestions = JSON.parse(data.questions);
+
+			// Validate the parsed questions against the questionSchema
+			const validatedQuestions = z
+				.array(questionSchema)
+				.parse(parsedQuestions);
+
+			// Upload the test data to Firebase Firestore
+			const testData = {
+				testName: data.testName,
+				testType: data.testType,
+				totalTime: data.totalTime,
+				questions: validatedQuestions,
+			};
+
+			const docRef = await addDoc(
+				collection(db, data.testType),
+				testData
+			);
+			console.log("Test uploaded successfully. Document ID:", docRef.id);
+		} catch (error) {
+			console.error("Error uploading test:", error);
+		}
 	};
 
 	return (
@@ -69,9 +118,8 @@ const TestForm = () => {
 									<SelectItem value="subjectwise">
 										Subjectwise
 									</SelectItem>
-									<SelectItem value="fullmix">
-										Full Mix
-									</SelectItem>
+									<SelectItem value="full">Full</SelectItem>
+									<SelectItem value="mix">Mix</SelectItem>
 								</SelectContent>
 							</Select>
 							<FormMessage />
